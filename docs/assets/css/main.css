@@ -1627,3 +1627,208 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+/* Frosted glass treatment for the portfolio homepage. */
+.index-page {
+  --glass-border: rgba(255, 255, 255, .84);
+  --glass-shadow: 0 18px 55px rgba(25, 66, 118, .12);
+  background: radial-gradient(ellipse at 8% 24%, #d7eaff, transparent 45%),
+              radial-gradient(ellipse at 92% 68%, #dce5ff, transparent 46%),
+              #f4f8fd;
+}
+
+.index-page .section:not(.dark-background):not(.accent-background) {
+  background: transparent;
+}
+
+.index-page .about .container,
+.index-page .services .service-item,
+.index-page .contact .php-email-form {
+  background: rgba(255, 255, 255, .82);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: var(--glass-shadow);
+}
+
+.index-page .portfolio-item > img {
+  width: 100%;
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: var(--glass-shadow);
+}
+
+.index-page .portfolio-item .portfolio-info {
+  background: rgba(250, 252, 255, .95);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: var(--glass-shadow);
+}
+
+.index-page .portfolio-item:focus-within .portfolio-info {
+  opacity: 1;
+  bottom: 0;
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .index-page .portfolio-item .portfolio-info {
+    background: rgba(250, 252, 255, .86);
+    backdrop-filter: blur(16px);
+  }
+}
+
+/* Project covers open on a left-hand hinge. */
+.index-page .portfolio .portfolio-item {
+  isolation: isolate;
+  perspective: 900px;
+}
+
+.index-page .portfolio-item > img {
+  position: relative;
+  z-index: 2;
+  display: block;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+.index-page .portfolio-item:has(.portfolio-cover-toggle[aria-expanded="true"]) > img {
+  transform: rotateY(-90deg);
+}
+
+.index-page .portfolio .portfolio-item .portfolio-info {
+  display: grid;
+  grid-template-columns: 44px 44px minmax(0, 1fr);
+  align-content: safe center;
+  gap: 4px 8px;
+  opacity: 1;
+  z-index: 1;
+  inset: 0 calc(var(--bs-gutter-x) * .5);
+  padding: 16px 16px 58px;
+  overflow: auto;
+  border-radius: 20px;
+}
+
+.index-page .portfolio .portfolio-info h4,
+.index-page .portfolio .portfolio-info p {
+  grid-column: 1 / -1;
+  padding-right: 0;
+}
+
+.index-page .portfolio .portfolio-info .preview-link,
+.index-page .portfolio .portfolio-info .details-link {
+  position: static;
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  line-height: 1;
+}
+
+.index-page .portfolio-cover-toggle {
+  position: absolute;
+  z-index: 3;
+  left: calc(var(--bs-gutter-x) * .5 + 12px);
+  bottom: 12px;
+  min-height: 44px;
+  padding: 8px 14px;
+  color: #fff;
+  background: #122744;
+  border: 1px solid #779bca;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.index-page .portfolio-cover-toggle:focus-visible {
+  outline: 3px solid #0078ff;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .index-page .portfolio-item > img {
+    transition: transform .55s ease;
+  }
+}
+
+.language-picker {
+  position: relative;
+  flex: none;
+  margin-inline: auto 12px;
+}
+
+#portfolio-language summary {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding-inline: 12px;
+  color: #fff;
+  background: #18263c;
+  border: 1px solid #65758a;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 14px;
+  list-style: none;
+  cursor: pointer;
+}
+
+#portfolio-language summary::-webkit-details-marker {
+  display: none;
+}
+
+#portfolio-language summary::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  margin-inline-start: 3px;
+  border: solid currentColor;
+  border-width: 0 1.5px 1.5px 0;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+#portfolio-language[open] summary::after {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.language-options {
+  position: absolute;
+  z-index: 10000;
+  inset-inline-end: 0;
+  top: calc(100% + 8px);
+  min-width: 170px;
+  padding: 4px;
+  background: #18263c;
+  border: 1px solid #65758a;
+  border-radius: 10px;
+}
+
+.language-options button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  background: transparent;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.language-options button:hover,
+.language-options button[aria-pressed="true"] {
+  background: #2e4669;
+}
+
+.language-flag {
+  flex: none;
+  width: 18px;
+  height: 12px;
+  border-radius: 2px;
+  background: url("../img/flag-gb.svg") center / cover;
+}
+
+html[lang="id"] .language-picker summary .language-flag,
+.language-flag.flag-id {
+  background-image: url("../img/flag-id.svg");
+}

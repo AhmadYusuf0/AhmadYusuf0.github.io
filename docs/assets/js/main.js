@@ -107,15 +107,22 @@
    */
   const selectTyped = document.querySelector('.typed');
   if (selectTyped) {
-    let typed_strings = selectTyped.getAttribute('data-typed-items');
-    typed_strings = typed_strings.split(',');
-    new Typed('.typed', {
-      strings: typed_strings,
-      loop: true,
-      typeSpeed: 100,
-      backSpeed: 50,
-      backDelay: 2000
-    });
+    const english = selectTyped.getAttribute('data-typed-items');
+    const indonesian = selectTyped.getAttribute('data-typed-items-id');
+    let animation;
+    function startTyped() {
+      animation?.destroy();
+      const roles = document.documentElement.lang === 'id' && indonesian ? indonesian : english;
+      animation = new Typed(selectTyped, {
+        strings: roles.split(',').map((role) => role.trim()),
+        loop: true,
+        typeSpeed: 100,
+        backSpeed: 50,
+        backDelay: 2000
+      });
+    }
+    startTyped();
+    if (indonesian) document.addEventListener('portfolio:language-change', startTyped);
   }
 
   /**
