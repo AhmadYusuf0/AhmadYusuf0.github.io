@@ -98,7 +98,7 @@
 
       <div class="container d-flex flex-column align-items-center justify-content-center text-center" data-aos="fade-up" data-aos-delay="100">
         <h2>I am Ahmad Yusuf Bahtiar</h2>
-        <p><span class="typed" data-typed-items="Freelancer, Web Developer, PHP Developer, Graphic Designer" data-typed-items-id="Pekerja Lepas, Pengembang Web, Pengembang PHP, Desainer Grafis"></span></p>
+        <p><span class="typed" data-typed-items="Freelancer, Website Developer, PHP Developer, Graphic Designer" data-typed-items-id="Pekerja Lepas, Website Developer, PHP Developer, Desainer Grafis"></span></p>
       </div>
 
     </section><!-- /Hero Section -->
@@ -175,7 +175,7 @@
           <div class="col-md-6">
             <div class="about-me">
               <h4>About me</h4>
-              <p class="text-white-75 mb-4">I am a software developer, specialising in the app mobile and web development.<br>For the last 2 years, I have been developing web and mobile using Javascript, CSS, HTML, and PHP programming languages.
+              <p class="text-white-75 mb-4">I am a software developer, specialising in the app mobile and web development.<br><span id="development-experience" data-start="2022-06">Since June 2022, I have been developing web and mobile applications using JavaScript, CSS, HTML, and PHP.</span>
                 <br><br>
                 Through my portfolio, you'll see examples of my work in mobile and web development, including responsive design, user interface design, and fullstack development. I have experience working with a variety of clients, and I always strive to deliver the best solutions that meet their needs.
                 <br><br>
@@ -298,7 +298,7 @@
                 <i class="bi-window-sidebar fs-1"></i>
               </div>
               <a href="#" class="stretched-link">
-                <h3>Web Developer</h3>
+                <h3>Website Developer</h3>
               </a>
               <p>create a website appearance and develop according to client request..</p>
             </div>
@@ -351,34 +351,54 @@
         <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
 
           <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-app">App</li>
-            <li data-filter=".filter-product">Web</li>
-            <li data-filter=".filter-branding">Design</li>
+            <li data-filter="*" class="filter-active"><button type="button" aria-pressed="true">All</button></li>
+            <li data-filter=".filter-app"><button type="button" aria-pressed="false">App</button></li>
+            <li data-filter=".filter-product"><button type="button" aria-pressed="false">Web</button></li>
+            <li data-filter=".filter-branding"><button type="button" aria-pressed="false">Design</button></li>
             <!-- <li data-filter=".filter-books">Books</li> -->
           </ul><!-- End Portfolio Filters -->
 
-          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+          <div class="project-spiral" hidden>
+            <div class="project-spiral-stage"></div>
+          </div>
+
+          <dialog class="project-dialog" aria-labelledby="project-dialog-title">
+            <div class="project-dialog-content">
+              <button class="project-dialog-close" type="button" autofocus>Close</button>
+              <h3 id="project-dialog-title"></h3>
+              <p class="project-dialog-description"></p>
+              <a class="project-dialog-site" target="_blank" rel="noopener noreferrer">Visit website</a>
+              <div class="project-dialog-image" id="project-image-preview">
+                <img alt="">
+              </div>
+              <button class="project-dialog-zoom" type="button" aria-controls="project-image-preview" aria-expanded="false">
+                <i class="bi bi-zoom-in" aria-hidden="true"></i>
+                <span>Enlarge image</span>
+              </button>
+            </div>
+          </dialog>
+
+          <div class="row gy-4 isotope-container">
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <img src="assets/img/portfolio/app-1.png" class="img-fluid rounded" alt="">
+              <img src="assets/img/portfolio/sampul-sinarmas.webp" class="img-fluid rounded" alt="">
               <button type="button" class="portfolio-cover-toggle" aria-expanded="false" aria-controls="project-info-1">Open project</button>
               <div class="portfolio-info" id="project-info-1" inert>
                 <h4>Sinarmas Land Queue System</h4>
                 <p>Queue system Admin App that efficiently manages<br>customer service interactions, ensuring seamless service delivery.</p>
-                <a href="assets/img/portfolio/app-1.png" title="Sinarmas Land" data-gallery="portfolio-gallery-app" class="glightbox preview-link rounded"><i class="bi bi-zoom-in"></i></a>
+                <a href="assets/img/portfolio/sampul-sinarmas.webp" title="Sinarmas Land" data-gallery="portfolio-gallery-app" class="glightbox preview-link rounded"><i class="bi bi-zoom-in"></i></a>
                 <!-- <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> -->
               </div>
             </div>
             <!-- End Portfolio Item -->
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <img src="assets/img/portfolio/product-1.png" class="img-fluid" alt="">
+              <img src="assets/img/portfolio/sampul-jogja.webp" class="img-fluid" alt="">
               <button type="button" class="portfolio-cover-toggle" aria-expanded="false" aria-controls="project-info-2">Open project</button>
               <div class="portfolio-info" id="project-info-2" inert>
                 <h4>Goa Pindul Jogja</h4>
                 <p>Engaging marketing website showcasing the natural beauty and attractions of Goa Pindul in Gunungkidul, Yogyakarta</p>
-                <a href="assets/img/portfolio/product-1.png" title="Goa Pindul Jogja" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="assets/img/portfolio/sampul-jogja.webp" title="Goa Pindul Jogja" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                 <a href="https://goapinduljogja.com" title="More Details" class="details-link" target="_blank"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div><!-- End Portfolio Item -->
@@ -407,46 +427,89 @@
             <!-- End Portfolio Item -->
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <img src="assets/img/portfolio/product-3.png" class="img-fluid" alt="">
+              <img src="assets/img/portfolio/sampul-gua.webp" class="img-fluid" alt="">
               <button type="button" class="portfolio-cover-toggle" aria-expanded="false" aria-controls="project-info-5">Open project</button>
               <div class="portfolio-info" id="project-info-5" inert>
                 <h4>Gua Pindul</h4>
                 <p>Engaging marketing website showcasing the natural beauty and attractions of Gua Pindul in Gunungkidul, Yogyakarta</p>
-                <a href="assets/img/portfolio/product-3.png" title="Gua Pindul" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="assets/img/portfolio/sampul-gua.webp" title="Gua Pindul" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                 <a href="https://guapindul.com" title="More Details" class="details-link" target="_blank"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div><!-- End Portfolio Item -->
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <img src="assets/img/portfolio/product-4.png" class="img-fluid" alt="">
+              <img src="assets/img/portfolio/sampul-craft.webp" class="img-fluid" alt="">
               <button type="button" class="portfolio-cover-toggle" aria-expanded="false" aria-controls="project-info-6">Open project</button>
               <div class="portfolio-info" id="project-info-6" inert>
                 <h4>Yogyakarta Craft</h4>
                 <p>Yogyakarta Craft is a leading manufacturer of high-quality, unique, and aesthetically pleasing wooden household items. We use sustainable materials and traditional craftsmanship to create beautiful and functional items for your home, such as wooden cutting boards, spoons, and decorative items.</p>
-                <a href="assets/img/portfolio/product-4.png" title="Yogyakarta Craft" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="assets/img/portfolio/sampul-craft.webp" title="Yogyakarta Craft" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                 <a href="https://yogyakartacraft.com" title="More Details" class="details-link" target="_blank"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div><!-- End Portfolio Item -->
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <img src="assets/img/portfolio/product-5.png" class="img-fluid" alt="">
+              <img src="assets/img/portfolio/sampul-mitra.webp" class="img-fluid" alt="">
               <button type="button" class="portfolio-cover-toggle" aria-expanded="false" aria-controls="project-info-7">Open project</button>
               <div class="portfolio-info" id="project-info-7" inert>
                 <h4>Mitra Teknik Yasatama</h4>
                 <p>Mitra Teknik Yasatama is a leading company in the field of high-quality metal casting, offering a wide range of products and services with the highest standards of quality and precision.</p>
-                <a href="assets/img/portfolio/product-5.png" title="Mitra Teknik Yasatama" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="assets/img/portfolio/sampul-mitra.webp" title="Mitra Teknik Yasatama" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                 <a href="https://mitrateknikyasatama.com" title="More Details" class="details-link" target="_blank"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div><!-- End Portfolio Item -->
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <img src="assets/img/portfolio/product-2.png" class="img-fluid" alt="">
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
+              <img src="assets/img/portfolio/siakad-syaira.webp" class="img-fluid" alt="">
               <button type="button" class="portfolio-cover-toggle" aria-expanded="false" aria-controls="project-info-8">Open project</button>
               <div class="portfolio-info" id="project-info-8" inert>
-                <h4>Syaira Global School</h4>
-                <p>Interactive and educational website designed to highlight the programs and learning experiences at Syaira Global School, a premier preschool academy fostering early childhood development and growth.</p>
-                <a href="assets/img/portfolio/product-2.png" title="Syaira Global School" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="https://syaira.com" title="More Details" class="details-link" target="_blank"><i class="bi bi-link-45deg"></i></a>
+                <h4>SIAKAD Syaira Global School</h4>
+                <p>A web application for managing school administration and finances at Syaira Global School. Staff can manage student and teacher records, classes, and academic years, and track student fees, payments, savings, and school expenses. The dashboard summarizes school activity, and reports help staff review transactions.</p>
+                <a href="assets/img/portfolio/siakad-syaira.webp" title="SIAKAD Syaira Global School" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+              <img src="assets/img/portfolio/pindul-website.webp" class="img-fluid" alt="">
+              <button type="button" class="portfolio-cover-toggle" aria-expanded="false" aria-controls="project-info-9">Open project</button>
+              <div class="portfolio-info" id="project-info-9" inert>
+                <h4>Goa Pindul · guapindul.net</h4>
+                <p>A tourism website showcasing cave tubing, rafting, and other activities around Goa Pindul, with booking via WhatsApp.</p>
+                <a href="assets/img/portfolio/pindul-website.webp" title="Goa Pindul · guapindul.net" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="https://guapindul.net/" title="Visit website" class="details-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+              <img src="assets/img/portfolio/aero-website.webp" class="img-fluid" alt="">
+              <button type="button" class="portfolio-cover-toggle" aria-expanded="false" aria-controls="project-info-10">Open project</button>
+              <div class="portfolio-info" id="project-info-10" inert>
+                <h4>Aero Production</h4>
+                <p>A website showcasing Aero Production’s sound system rental and event production services.</p>
+                <a href="assets/img/portfolio/aero-website.webp" title="Aero Production" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="https://aeroproduction.web.id/" title="Visit website" class="details-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+              <img src="assets/img/portfolio/saratoga-website.webp" class="img-fluid" alt="">
+              <button type="button" class="portfolio-cover-toggle" aria-expanded="false" aria-controls="project-info-11">Open project</button>
+              <div class="portfolio-info" id="project-info-11" inert>
+                <h4>Saratoga Investama Sedaya</h4>
+                <p>Saratoga’s corporate website presents company information, reports, and investor publications. I worked on the CMS and APIs.</p>
+                <a href="assets/img/portfolio/saratoga-website.webp" title="Saratoga Investama Sedaya" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="https://saratoga-investama.com/" title="Visit website" class="details-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
+              <img src="assets/img/portfolio/kimaya-website.webp" class="img-fluid" alt="">
+              <button type="button" class="portfolio-cover-toggle" aria-expanded="false" aria-controls="project-info-12">Open project</button>
+              <div class="portfolio-info" id="project-info-12" inert>
+                <h4>Kimaya Hotels</h4>
+                <p>The Kimaya Hotels website introduces its hotel properties to prospective guests. I worked on the CMS and APIs.</p>
+                <a href="assets/img/portfolio/kimaya-website.webp" title="Kimaya Hotels" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="https://www.thekimayahotels.com/" title="Visit website" class="details-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div><!-- End Portfolio Item -->
           </div><!-- End Portfolio Container -->
@@ -704,6 +767,7 @@
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
   <!-- Main JS File -->
+  <script src="assets/js/project-spiral.js"></script>
   <script src="assets/js/main.js"></script>
   <script>
     function hubungiSaya() {

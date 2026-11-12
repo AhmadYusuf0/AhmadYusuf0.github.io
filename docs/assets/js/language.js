@@ -8,7 +8,6 @@
     'Name:': 'Nama:', 'Profile:': 'Profil:', Skills: 'Keahlian',
     'Full Stack Developer': 'Pengembang Full Stack', 'About me': 'Tentang saya',
     'I am a software developer, specialising in the app mobile and web development.': 'Saya pengembang perangkat lunak yang berfokus pada aplikasi seluler dan web.',
-    'For the last 2 years, I have been developing web and mobile using Javascript, CSS, HTML, and PHP programming languages.': 'Selama dua tahun terakhir, saya mengembangkan web dan aplikasi seluler dengan JavaScript, CSS, HTML, dan PHP.',
     "Through my portfolio, you'll see examples of my work in mobile and web development, including responsive design, user interface design, and fullstack development. I have experience working with a variety of clients, and I always strive to deliver the best solutions that meet their needs.": 'Portofolio ini menampilkan pekerjaan saya dalam pengembangan aplikasi seluler dan web, termasuk desain responsif, antarmuka pengguna, dan pengembangan full stack. Saya berpengalaman bekerja dengan berbagai klien dan berupaya memberikan solusi yang sesuai dengan kebutuhan mereka.',
     "I hope that my portfolio inspires you and demonstrates my passion for programming. Thank you for your time, and please don't hesitate to contact me if you have any questions or would like to discuss a potential project.": 'Semoga portofolio ini menunjukkan minat saya pada pemrograman. Terima kasih atas waktunya. Silakan hubungi saya untuk bertanya atau membahas proyek.',
     Resume: 'Riwayat Hidup', Summary: 'Ringkasan', Education: 'Pendidikan',
@@ -23,7 +22,7 @@
     'Developing a web for system admin and web landing pages with Laravel for the back end': 'Mengembangkan panel admin dan halaman landing dengan Laravel untuk backend.',
     'Create Android and iOS mobile apps with Cordova.': 'Membuat aplikasi Android dan iOS dengan Cordova.',
     'Developing a web for system admin and web landing pages with CodeIghniter for the back end': 'Mengembangkan panel admin dan halaman landing dengan CodeIgniter untuk backend.',
-    'Web Developer': 'Pengembang Web', 'Mobile Developer': 'Pengembang Aplikasi Seluler',
+    'Mobile Developer': 'Pengembang Aplikasi Seluler',
     'Graphic Designer': 'Desainer Grafis',
     'create a website appearance and develop according to client request..': 'Merancang dan mengembangkan situs web sesuai kebutuhan klien.',
     'Create a mobile application layout and application system according to the requested design flow': 'Merancang tampilan dan membangun aplikasi seluler sesuai alur yang diminta.',
@@ -49,7 +48,11 @@
     'Situs pemasaran yang menampilkan keindahan alam dan daya tarik Gua Pindul di Gunungkidul, Yogyakarta.',
     'Yogyakarta Craft memproduksi perlengkapan rumah tangga dari kayu, seperti talenan, sendok, dan dekorasi, dengan bahan berkelanjutan dan teknik tradisional.',
     'Mitra Teknik Yasatama menawarkan produk dan layanan pengecoran logam dengan standar kualitas dan presisi tinggi.',
-    'Situs interaktif yang memperkenalkan program dan pengalaman belajar anak usia dini di Syaira Global School.'
+    'Aplikasi web untuk mengelola administrasi dan keuangan Syaira Global School. Staf sekolah dapat mengelola data siswa, guru, kelas, dan tahun ajaran, serta mencatat tagihan, pembayaran, tabungan siswa, dan pengeluaran sekolah. Dashboard merangkum aktivitas sekolah, sementara laporan membantu staf meninjau transaksi.',
+    'Website wisata yang menampilkan paket cave tubing, rafting, dan aktivitas sekitar Goa Pindul, dengan pemesanan melalui WhatsApp.',
+    'Website yang memperkenalkan layanan penyewaan sound system dan produksi acara Aero Production.',
+    'Website korporat Saratoga yang menampilkan informasi perusahaan, laporan, dan publikasi investor. Saya mengerjakan bagian CMS dan API.',
+    'Website Kimaya Hotels untuk memperkenalkan properti hotel kepada calon tamu. Saya mengerjakan bagian CMS dan API.'
   ];
   const entries = [];
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
@@ -72,6 +75,18 @@
     button.textContent = indonesian ? (open ? 'Tutup proyek' : 'Buka proyek') : (open ? 'Close project' : 'Open project');
   }
 
+  function updateExperience(indonesian) {
+    const experience = document.getElementById('development-experience');
+    const [startYear, startMonth] = experience.dataset.start.split('-').map(Number);
+    const now = new Date();
+    const months = (now.getFullYear() - startYear) * 12 + now.getMonth() + 1 - startMonth;
+    const years = Math.floor(months / 12);
+    const duration = indonesian ? `${years} tahun` : `${years} ${years === 1 ? 'year' : 'years'}`;
+    experience.textContent = indonesian
+      ? `Selama ${duration} terakhir, saya mengembangkan web dan aplikasi seluler dengan JavaScript, CSS, HTML, dan PHP.`
+      : `For the last ${duration}, I have been developing web and mobile applications using JavaScript, CSS, HTML, and PHP.`;
+  }
+
   function updateLanguage(language) {
     const indonesian = language === 'id';
     document.documentElement.lang = language;
@@ -87,9 +102,11 @@
       element.placeholder = indonesian ? translation : english;
     });
     document.querySelectorAll('.portfolio-cover-toggle').forEach(updateCard);
+    updateExperience(indonesian);
     document.dispatchEvent(new Event('portfolio:language-change'));
   }
 
+  updateExperience(false);
   options.forEach((option) => option.addEventListener('click', () => {
     if (document.documentElement.lang !== option.dataset.language) updateLanguage(option.dataset.language);
     picker.open = false;
