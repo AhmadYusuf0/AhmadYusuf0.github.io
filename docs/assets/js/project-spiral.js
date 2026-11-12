@@ -59,8 +59,9 @@
     const radius = Math.min(width * spread, (width / perspectiveScale - cardWidth) / 2 - 12);
     shown.forEach(({ cover }, index) => {
       const row = index - (shown.length - 1) / 2;
-      const angle = row * 1.04 + rotation + scrollOffset * 7;
-      const x = Math.sin(angle) * radius;
+      const angle = row * .83 + rotation + scrollOffset * 7;
+      const zigzag = (2 / Math.PI) * Math.asin(Math.sin(angle));
+      const x = zigzag * radius;
       const y = row * spacing - Math.max(-1, Math.min(1, scrollOffset * 2)) * travel;
       const depth = Math.cos(angle);
       cover.style.zIndex = String(Math.round((depth + 1) * 100));
