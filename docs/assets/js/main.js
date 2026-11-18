@@ -28,7 +28,8 @@
   const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
 
   function mobileNavToogle() {
-    document.querySelector('body').classList.toggle('mobile-nav-active');
+    const expanded = document.body.classList.toggle('mobile-nav-active');
+    mobileNavToggleBtn.setAttribute('aria-expanded', String(expanded));
     mobileNavToggleBtn.classList.toggle('bi-list');
     mobileNavToggleBtn.classList.toggle('bi-x');
   }

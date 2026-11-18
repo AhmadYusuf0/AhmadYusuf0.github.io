@@ -91,7 +91,7 @@
     const indonesian = language === 'id';
     document.documentElement.lang = language;
     document.title = indonesian ? 'Yusuf - Portofolio' : 'Yusuf - Portfolio';
-    summary.setAttribute('aria-label', indonesian ? 'Bahasa: Indonesia' : 'Language: English');
+    summary.setAttribute('aria-label', indonesian ? 'ID — Bahasa Indonesia' : 'EN — English');
     summary.querySelector('.language-code').textContent = language.toUpperCase();
     options.forEach((option) => option.setAttribute('aria-pressed', String(option.dataset.language === language)));
     entries.forEach(([node, english, translation]) => { node.data = indonesian ? translation : english; });
@@ -100,6 +100,7 @@
     });
     placeholders.forEach(([element, english, translation]) => {
       element.placeholder = indonesian ? translation : english;
+      element.setAttribute('aria-label', element.placeholder);
     });
     document.querySelectorAll('.portfolio-cover-toggle').forEach(updateCard);
     updateExperience(indonesian);
