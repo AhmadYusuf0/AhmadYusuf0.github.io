@@ -16,6 +16,22 @@
   const site = dialog.querySelector(".project-dialog-site");
   const imageButton = dialog.querySelector(".project-dialog-zoom");
   const image = dialog.querySelector(".project-dialog-image img");
+  const video = document.createElement("video");
+  video.controls = true;
+  video.muted = true;
+  video.loop = true;
+  video.playsInline = true;
+  video.preload = "none";
+  video.hidden = true;
+  video.style.width = "100%";
+  image.after(video);
+  video.addEventListener("error", () => {
+    video.hidden = true;
+    image.hidden = false;
+    video.removeAttribute("src");
+    imageButton.setAttribute("aria-expanded", "false");
+    updateLabels();
+  });
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const projects = [...layout.querySelectorAll(".portfolio-item")].map(
     (item) => {
@@ -49,12 +65,36 @@
   let hovering = false;
   let focused = false;
   let touchPaused = false;
+  let geometry;
+  let geometryDirty = true;
+  const mobileViewport = matchMedia("(max-width: 575.98px)");
+  const stageObserver = new ResizeObserver(() => {
+    geometryDirty = true;
+    schedule();
+  });
+  stageObserver.observe(stage);
+  window.addEventListener("scroll", () => {
+    geometryDirty = true;
+  }, { passive: true });
+  document.addEventListener("visibilitychange", () => {
+    previousTime = 0;
+    geometryDirty = true;
+    schedule();
+  });
 
   function render(time) {
     frame = 0;
-    if (reducedMotion.matches) return;
+    if (reducedMotion.matches || document.hidden) return;
     const paused = hovering || focused || touchPaused || dialog.open;
-    const bounds = gallery.getBoundingClientRect();
+    if (geometryDirty) {
+      geometry = {
+        bounds: gallery.getBoundingClientRect(),
+        width: stage.clientWidth,
+        height: stage.clientHeight
+      };
+      geometryDirty = false;
+    }
+    const { bounds, width, height } = geometry;
     if (!paused) {
       scrollOffset =
         (innerHeight / 2 - bounds.top - bounds.height / 2) /
@@ -63,8 +103,6 @@
         rotation += Math.min(time - previousTime, 50) * 0.00024;
     }
     previousTime = visible && !paused ? time : 0;
-    const width = stage.clientWidth;
-    const height = stage.clientHeight;
     const cardWidth = Math.max(124, Math.min(width * 0.27, 224));
     const perspectiveScale = 850 / (850 - 65);
     const cardHalfHeight = (cardWidth * 0.75 * perspectiveScale) / 2;
@@ -76,7 +114,7 @@
     );
     const spread = Math.min(0.4, 0.36 + Math.max(0, width - 768) / 12000);
     // const radius = Math.min(width * spread, (width / perspectiveScale - cardWidth) / 2 - edgeInset);
-    const radius = window.matchMedia("(max-width: 575.98px)").matches
+    const radius = mobileViewport.matches
       ? (width - cardWidth) / 2
       : Math.min(
           width * spread,
@@ -90,7 +128,8 @@
       const y =
         row * spacing - Math.max(-1, Math.min(1, scrollOffset * 2)) * travel;
       const depth = Math.cos(angle);
-      cover.style.zIndex = String(Math.round((depth + 1) * 100));
+      const zIndex = String(Math.round((depth + 1) * 100));
+      if (cover.style.zIndex !== zIndex) cover.style.zIndex = zIndex;
       cover.style.transform = `translate3d(${x}px, ${y}px, ${depth * 65}px) rotateY(${Math.sin(angle) * 32}deg) scale(${0.86 + depth * 0.12})`;
     });
     if (visible && !paused) schedule();
@@ -109,6 +148,13 @@
     const siteLink = site.querySelector("a");
     if (siteLink) siteLink.textContent = id ? "Kunjungi situs" : "Visit website";
     const enlarged = imageButton.getAttribute("aria-expanded") === "true";
+    if (video.hasAttribute("src")) {
+      imageButton.querySelector("span").textContent = enlarged
+        ? (id ? "Kembali ke gambar" : "Back to image")
+        : (id ? "Lihat demo website" : "Watch website demo");
+      imageButton.querySelector("i").className = enlarged ? "bi bi-image" : "bi bi-play-circle";
+      return;
+    }
     imageButton.querySelector("span").textContent = enlarged
       ? id
         ? "Perkecil gambar"
@@ -133,6 +179,15 @@
     image.src = item.querySelector(".preview-link").href;
     image.alt = title.textContent.trim();
     imageButton.setAttribute("aria-expanded", "false");
+    video.pause();
+    video.hidden = true;
+    image.hidden = false;
+    video.removeAttribute("src");
+    if (item.classList.contains("filter-product")) {
+      const filename = item.querySelector(":scope > img").getAttribute("src").split("/").pop().replace(/\.webp$/, "");
+      video.src = "assets/video/" + filename + ".webm";
+      video.poster = image.src;
+    }
     site.hidden = !external;
     site.replaceChildren();
     if (external) {
@@ -192,6 +247,7 @@
     if (event.target === dialog) dialog.close();
   });
   dialog.addEventListener("close", () => {
+    video.pause();
     activeProject.cover.focus({ preventScroll: true });
     schedule();
   });
@@ -200,6 +256,12 @@
       "aria-expanded",
       String(imageButton.getAttribute("aria-expanded") !== "true"),
     );
+    const expanded = imageButton.getAttribute("aria-expanded") === "true";
+    const hasVideo = video.hasAttribute("src");
+    video.hidden = !(expanded && hasVideo);
+    image.hidden = expanded && hasVideo;
+    if (expanded && hasVideo) video.play().catch(() => {});
+    else video.pause();
     updateLabels();
   });
   document.addEventListener("portfolio:language-change", updateLabels);

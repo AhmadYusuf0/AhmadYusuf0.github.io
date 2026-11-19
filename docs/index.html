@@ -15,7 +15,7 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -27,6 +27,10 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
+  <!-- Editorial Motion Theme (visual layer only) -->
+  <!-- Motion theme, palette matched to the reference page -->
+  <link href="assets/css/theme.css" rel="stylesheet">
+
   <!-- =======================================================
   * Template Name: DevFolio
   * Template URL: https://bootstrapmade.com/devfolio-bootstrap-portfolio-html-template/
@@ -36,7 +40,11 @@
   ======================================================== -->
 </head>
 
-<body class="index-page">
+<body class="index-page no-aos">
+
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
 
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
@@ -47,6 +55,7 @@
         <h1 class="sitename">Yusuf Bahtiar</h1>
       </a>
 
+      <button id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><i class="bi bi-moon" aria-hidden="true"></i></button>
       <details id="portfolio-language" class="language-picker">
         <summary aria-label="Language: EN">
           <span class="language-flag" aria-hidden="true"></span>
@@ -102,6 +111,22 @@
       </div>
 
     </section><!-- /Hero Section -->
+
+    <!-- Marquee Band -->
+    <div class="marquee-band" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-group">
+          <span>Website Developer</span><i>&#9670;</i>
+          <span>Mobile Developer</span><i>&#9670;</i>
+          <span>Graphic Designer</span><i>&#9670;</i>
+          <span>Full Stack</span><i>&#9670;</i>
+          <span>Laravel</span><i>&#9670;</i>
+          <span>PHP</span><i>&#9670;</i>
+          <span>JavaScript</span><i>&#9670;</i>
+          <span>Yogyakarta</span><i>&#9670;</i>
+        </div>
+      </div>
+    </div>
 
     <!-- About Section -->
     <section id="about" class="about section">
@@ -697,7 +722,7 @@
             </div>
 
             <div class="col-md-6 ">
-              <input type="text" class="form-control" name="whatsapp" id="whatsapp" inputmode="tel" autocomplete="tel" aria-label="Your Whatsapp Number" placeholder="Your Whatsapp Number" required="" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+              <input type="text" class="form-control" name="organization" id="organization" autocomplete="organization" aria-label="Business / Organization Name (optional)" placeholder="Business / Organization Name (optional)">
             </div>
 
             <div class="col-md-12">
@@ -752,7 +777,7 @@
   <a href="#hero" id="scroll-top" aria-label="Back to top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
-  <div id="preloader"></div>
+
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -765,22 +790,27 @@
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
+  <!-- Motion Engine -->
+  <script src="assets/vendor/gsap/gsap.min.js"></script>
+  <script src="assets/vendor/gsap/ScrollTrigger.min.js"></script>
+
   <!-- Main JS File -->
   <script src="assets/js/project-spiral.js"></script>
   <script src="assets/js/main.js"></script>
   <script>
     function hubungiSaya() {
         var name = document.getElementById('name').value;
-        var whatsapp = document.getElementById('whatsapp').value;
+        var organization = document.getElementById('organization').value.trim();
         var subject = document.getElementById('subject').value;
         var message = document.getElementById('message').value;
         var encryptedPhone = 'KzYyODc4Mzk1MzExMDE=';
         var decodedPhone = atob(encryptedPhone);
 
         const indonesian = document.documentElement.lang === 'id';
+        const organizationLine = organization ? `\n${indonesian ? 'Usaha / Organisasi' : 'Business / Organization'}: ${organization}` : '';
         const text = indonesian
-          ? `*Halo Yusuf!* Saya menghubungi Anda melalui portofolio ini.\n\nNama: ${name}\nNomor WhatsApp: ${whatsapp}\nSubjek: ${subject}\nPesan: ${message}\n\nTerima kasih.`
-          : `*Hi Yusuf!* I am getting in touch through your portfolio.\n\nName: ${name}\nWhatsApp number: ${whatsapp}\nSubject: ${subject}\nMessage: ${message}\n\nThank you.`;
+          ? `*Halo Yusuf!* Saya menghubungi Anda melalui portofolio ini.\n\nNama: ${name}${organizationLine}\nSubjek: ${subject}\nPesan: ${message}\n\nTerima kasih.`
+          : `*Hi Yusuf!* I am getting in touch through your portfolio.\n\nName: ${name}${organizationLine}\nSubject: ${subject}\nMessage: ${message}\n\nThank you.`;
         var href = `https://api.whatsapp.com/send?phone=${decodedPhone}&text=${encodeURIComponent(text)}`;
 
         window.open(href, '_blank');
@@ -800,6 +830,8 @@
     });
   </script>
   <script src="assets/js/language.js"></script>
+  <script src="assets/js/motion.js"></script>
+  <script src="assets/js/theme-toggle.js"></script>
 </body>
 
 </html>

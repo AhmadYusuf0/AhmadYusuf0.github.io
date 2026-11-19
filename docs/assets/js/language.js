@@ -36,7 +36,7 @@
     'The brochure design is excellent! 👍': 'Desain brosurnya mantap sekali! 👍',
     'Fantastic work! 🤟': 'Joss, mantap! 🤟',
     'Send me a messages and I will get back to you as soon as possible!': 'Kirim pesan dan saya akan segera membalasnya!',
-    'Your Name': 'Nama Anda', 'Your Whatsapp Number': 'Nomor WhatsApp Anda',
+    'Your Name': 'Nama Anda', 'Business / Organization Name (optional)': 'Nama Usaha / Organisasi (opsional)',
     Subject: 'Subjek', Message: 'Pesan', 'Send Message': 'Kirim Pesan',
     Copyright: 'Hak Cipta', 'All Rights Reserved': 'Hak cipta dilindungi.', 'Created by': 'Dibuat oleh'
   };
